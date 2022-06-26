@@ -1,4 +1,5 @@
 package mybatis.boarduk.mapper;
+/*
 
 import mybatis.boarduk.domain.Company;
 import org.apache.ibatis.annotations.*;
@@ -26,3 +27,4 @@ public interface CompanyMapper  {
     Company getById(@Param("id") int id);
 
 }
+*/

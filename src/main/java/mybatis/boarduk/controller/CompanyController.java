@@ -1,5 +1,5 @@
 package mybatis.boarduk.controller;
-
+/*
 import lombok.RequiredArgsConstructor;
 import mybatis.boarduk.domain.Company;
 import mybatis.boarduk.mapper.CompanyMapper;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/company")
 @RequiredArgsConstructor // 생성자 주입
-public class CompanyController {
+public class    CompanyController {
 
     private CompanyMapper companyMapper;
 
@@ -37,3 +37,4 @@ public class CompanyController {
     }
 
 }
+*/

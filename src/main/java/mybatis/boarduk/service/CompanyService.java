@@ -1,4 +1,5 @@
 package mybatis.boarduk.service;
+/*
 
 import lombok.RequiredArgsConstructor;
 import mybatis.boarduk.mapper.EmployeeMapper;
@@ -41,4 +42,4 @@ public class CompanyService {
         }
         return company;
     }
-}
+}*/

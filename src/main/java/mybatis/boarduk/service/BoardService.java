@@ -1,9 +1,8 @@
 package mybatis.boarduk.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import mybatis.boarduk.dto.BoardDto;
+import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class BoardService {
+public interface BoardService {
+    List<BoardDto> selectBoardList() throws Exception;
 }

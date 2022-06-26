@@ -25,7 +25,7 @@ create table boarduk.employee (
     company_id INTEGER,
     employee_name VARCHAR(128),
     employee_address VARCHAR(128),
-    foreign key (company_id) references company(id)
+    CONSTRAINT fk_company_id foreign key (company_id) references boarduk.company(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 ALTER TABLE b_user ADD CONSTRAINT constraintname UNIQUE (portal_id);
@@ -38,3 +38,22 @@ CREATE TABLE boarduk.board (
     board_views INTEGER,
     foreign key (board_writer) references b_user(portal_id)
 );
+
+CREATE TABLE boarduk.b_board (
+    board_no bigint NOT NULL DEFAULT nextval('seq_b_board'::regclass),
+    board_title CHARACTER VARYING(300) NOT NULL,
+    board_contents CHARACTER VARYING,
+    board_views SMALLINT NOT NULL DEFAULT 0,
+    insert_timestamp timestamp without time zone NOT NULL DEFAULT now(), -- 생성날짜
+    updated_timestamp timestamp without time zone,
+    board_writer CHARACTER VARYING(50) NOT NULL,
+    board_editor CHARACTER VARYING(50) NOT NULL,
+    is_deleted character(1) NOT NULL DEFAULT 'F'::bpchar,
+    CONSTRAINT pk_board PRIMARY KEY (board_no),
+    foreign key (board_writer) references b_user(portal_id)
+);
+
+COMMENT ON COLUMN "b_board"."board_title" IS '제목';
+
+CREATE SEQUENCE seq_b_board START 1;
+

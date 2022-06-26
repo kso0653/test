@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(basePackages={"mybatis.boarduk.controller"})
+//@ComponentScan(basePackages={"mybatis.boarduk.controller"})
 @SpringBootApplication
 public class BoardukApplication {
 

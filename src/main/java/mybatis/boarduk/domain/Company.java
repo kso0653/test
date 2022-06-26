@@ -1,4 +1,5 @@
 package mybatis.boarduk.domain;
+/*
 
 import lombok.Data;
 
@@ -35,3 +36,4 @@ public class Company  {
 //        this.address = address;
 //    }
 }
+*/

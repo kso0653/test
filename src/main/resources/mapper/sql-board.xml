@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.boarduk.mapper.BoardMapper">
+    <select id="selectBoardList" resultType="mybatis.boarduk.dto.BoardDto">
+        <![CDATA[
+        SELECT
+            board_no,
+            board_title,
+            board_views,
+            insert_timestamp
+        FROM
+            b_board
+        WHERE
+            is_deleted = 'F'
+        ORDER BY board_no DESC
+        ]]>
+    </select>
+</mapper>

@@ -1,5 +1,5 @@
 package mybatis.boarduk.controller;
-
+/*
 import mybatis.boarduk.mapper.EmployeeMapper;
 import mybatis.boarduk.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,3 +30,4 @@ public class EmployeeController {
         return employeeMapper.getById(id);
     }
 }
+ */

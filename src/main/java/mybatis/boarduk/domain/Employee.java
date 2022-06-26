@@ -1,5 +1,5 @@
 package mybatis.boarduk.domain;
-
+/*
 import lombok.Data;
 
 @Data
@@ -8,4 +8,4 @@ public class Employee {
     private int companyId;
     private String name;
     private String address;
-}
+}*/

@@ -1,4 +1,5 @@
 package mybatis.boarduk.mapper;
+/*
 
 import mybatis.boarduk.domain.Employee;
 import org.apache.ibatis.annotations.*;
@@ -27,3 +28,4 @@ public interface EmployeeMapper {
     @ResultMap("EmployeeMap")
     List<Employee> getByCompanyId(@Param("companyId") int companyId);
 }
+*/

@@ -2,6 +2,7 @@ package mybatis.boarduk.service;
 
 import mybatis.boarduk.dto.BoardDto;
 import mybatis.boarduk.mapper.BoardMapper;
+import org.apache.ibatis.annotations.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,17 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDto> selectBoardList() throws Exception {
         return boardMapper.selectBoardList();
+    }
+
+    @Override
+    public void insertBoard(BoardDto board) throws Exception {
+        boardMapper.insertBoard(board);
+    }
+
+    @Override
+    public BoardDto selectBoardDetail(int boardNo) throws Exception {
+        boardMapper.updateViewCount(boardNo);
+        BoardDto board = boardMapper.selectBoardDetail(boardNo);
+        return board;
     }
 }

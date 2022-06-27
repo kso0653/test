@@ -12,4 +12,8 @@ public interface BoardMapper {
     void insertBoard(BoardDto board) throws Exception;
     BoardDto selectBoardDetail(int boardNo) throws Exception;
     void updateViewCount(int boardNo) throws Exception;
+
+    void updateBoard(BoardDto board) throws Exception;
+
+    void deleteBoard(int boardNo) throws Exception;
 }

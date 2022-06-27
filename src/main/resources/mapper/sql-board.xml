@@ -61,4 +61,17 @@
                 AND is_deleted = 'F'
         ]]>
     </select>
+    <update id="updateBoard" parameterType="mybatis.boarduk.dto.BoardDto">
+        <![CDATA[
+            UPDATE
+                b_board
+            SET
+                board_title = #{boardTitle},
+                board_contents = #{boardContents},
+                updated_timestamp = NOW(),
+                board_editor = 'admin'
+            WHERE
+                board_no = #{boardNo}
+        ]]>
+    </update>
 </mapper>

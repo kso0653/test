@@ -1,5 +1,6 @@
 package mybatis.boarduk.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import mybatis.boarduk.dto.BoardDto;
 import mybatis.boarduk.service.BoardService;
 import org.apache.ibatis.annotations.Param;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 public class BoardController {
 
@@ -23,6 +25,7 @@ public class BoardController {
 
     @RequestMapping("/board/openBoardList.do")
     public ModelAndView openBoardList() throws Exception {
+        log.debug("openBoardList");
         ModelAndView mv = new ModelAndView("/board/boardList");
 
         List<BoardDto> list = boardService.selectBoardList();
@@ -51,5 +54,17 @@ public class BoardController {
         mv.addObject("board", board);
 
         return mv;
+    }
+
+    @RequestMapping("/board/updateBoard.do")
+    public String updateBoard(BoardDto board) throws Exception {
+        boardService.updateBoard(board);
+        return "redirect:/board/openBoardList.do";
+    }
+
+    @RequestMapping("/board/deleteBoard.do")
+    public String deleteBoard(int boardNo) throws Exception {
+        boardService.deleteBoard(boardNo);
+        return "redirect:/board/openBoardList.do";
     }
 }

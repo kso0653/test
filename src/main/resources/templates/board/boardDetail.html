@@ -35,14 +35,14 @@
         <tr>
             <th scope="row">제목</th>
             <td colspan="3">
-                <input type="text" id="title" name="title"
-                       th:value="${board.boardTitle }"/>
+                <input type="text" id="title" name="boardTitle"
+                       th:value="${board.boardTitle}"/>
             </td>
         </tr>
         <tr>
             <td colspan="4" class="view_text">
-							<textarea title="내용" id="contents" name="contents"
-                                      th:text="${board.boardContents }"></textarea>
+							<textarea title="내용" id="contents" name="boardContents"
+                                      th:text="${board.boardContents}"></textarea>
             </td>
         </tr>
         </tbody>
@@ -59,18 +59,18 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#list").on("click", function(){
-                location.href = "openBoardList.do";
+                location.href = "/board/openBoardList.do";
             });
 
             $("#edit").on("click", function(){
                 var frm = $("#frm")[0];
-                frm.action = "updateBoard.do";
+                frm.action = "/board/updateBoard.do";
                 frm.submit();
             });
 
             $("#delete").on("click", function(){
                 var frm = $("#frm")[0];
-                frm.action = "deleteBoard.do";
+                frm.action = "/board/deleteBoard.do";
                 frm.submit();
             });
         })

@@ -72,3 +72,19 @@ INSERT INTO boarduk.b_board (
 ALTER TABLE boarduk.b_board ALTER board_editor DROP NOT NULL;
 
 ALTER TABLE boarduk.b_board DROP CONSTRAINT b_board_board_writer_fkey;
+
+CREATE TABLE b_file (
+                        file_id bigint NOT NULL DEFAULT nextval('seq_b_file'::regclass),
+                        board_no INT NOT NULL,
+                        original_file_name CHARACTER VARYING(255) NOT NULL,
+                        stored_file_path CHARACTER VARYING(500) NOT NULL,
+                        file_size INT NOT NULL,
+                        board_writer CHARACTER VARYING(50) NOT NULL,
+                        insert_timestamp timestamp without time zone NOT NULL DEFAULT now(), -- 생성날짜
+                        updated_timestamp timestamp without time zone,
+                        board_editor CHARACTER VARYING(50) DEFAULT NULL,
+                        is_deleted character(1) NOT NULL DEFAULT 'F'::bpchar,
+                        CONSTRAINT pk_file PRIMARY KEY (file_id)
+);
+
+CREATE SEQUENCE seq_b_file START 1;

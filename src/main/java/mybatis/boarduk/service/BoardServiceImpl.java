@@ -1,15 +1,21 @@
 package mybatis.boarduk.service;
 
+import lombok.extern.slf4j.Slf4j;
 import mybatis.boarduk.dto.BoardDto;
 import mybatis.boarduk.mapper.BoardMapper;
 import org.apache.ibatis.annotations.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
+@Slf4j
 //@Transactional
 public class BoardServiceImpl implements BoardService {
 
@@ -26,8 +32,24 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void insertBoard(BoardDto board) throws Exception {
-        boardMapper.insertBoard(board);
+    public void insertBoard(BoardDto board, MultipartHttpServletRequest multipartHttpServletRequest) throws Exception {
+//        boardMapper.insertBoard(board);
+        if(ObjectUtils.isEmpty(multipartHttpServletRequest) == false) {
+            Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+            String name;
+            while(iterator.hasNext()) {
+                name = iterator.next();
+                log.debug("file tag name : " + name);
+                List<MultipartFile> list = multipartHttpServletRequest.getFiles(name);
+                for(MultipartFile multipartFile : list) {
+                    log.debug("start file information");
+                    log.debug("file name : " + multipartFile.getOriginalFilename());
+                    log.debug("file size : " + multipartFile.getSize());
+                    log.debug("file content type : " + multipartFile.getContentType());
+                    log.debug("end file information.\n");
+                }
+            }
+        }
     }
 
     @Override

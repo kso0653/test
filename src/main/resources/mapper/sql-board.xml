@@ -17,7 +17,7 @@
         ORDER BY board_no DESC
         ]]>
     </select>
-    <insert id="insertBoard" parameterType="mybatis.boarduk.dto.BoardDto">
+    <insert id="insertBoard" parameterType="mybatis.boarduk.dto.BoardDto" useGeneratedKeys="true" keyProperty="boardNo">
         <![CDATA[
         INSERT INTO b_board
             (
@@ -34,6 +34,30 @@
                 'admin' --임시 (회원가입 개발 후 변경)
             )
         ]]>
+    </insert>
+    <insert id="insertBoardFileList" parameterType="mybatis.boarduk.dto.BoardFileDto">
+        <![CDATA[
+			INSERT INTO b_file
+			(
+				board_no,
+				original_file_name,
+				stored_file_path,
+				file_size,
+				board_writer,
+				insert_timestamp
+			)
+			VALUES
+		]]>
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.boardNo},
+            #{item.originalFileName},
+            #{item.storedFilePath},
+            #{item.fileSize},
+            'admin',
+            NOW()
+            )
+        </foreach>
     </insert>
     <update id="updateViewCount" parameterType="int">
         <![CDATA[
@@ -72,6 +96,59 @@
                 board_editor = 'admin'
             WHERE
                 board_no = #{boardNo}
+        ]]>
+    </update>
+    <select id="selectBoardFileList" parameterType="int" resultType="mybatis.boarduk.dto.BoardFileDto">
+		<![CDATA[
+        SELECT
+            file_id,
+            board_no,
+            original_file_name,
+            ROUND( CAST(file_size / 1024 as numeric), 2) AS file_size
+        FROM
+            b_file
+        WHERE
+            board_no = #{boardNo}
+          AND is_deleted = 'F'
+        ]]>
+	</select>
+    <select id="selectBoardFileInformation" parameterType="map" resultType="mybatis.boarduk.dto.BoardFileDto">
+		<![CDATA[
+        SELECT
+            original_file_name,
+            stored_file_path,
+            file_size
+        FROM
+            b_file
+        WHERE
+            file_id = #{fileId}
+          AND board_no = #{boardNo}
+          AND is_deleted = 'F'
+        ]]>
+	</select>
+    <update id="deleteBoardFile" parameterType="map">
+		<![CDATA[
+        UPDATE
+            b_file
+        SET
+            is_deleted = 'T',
+            updated_timestamp = NOW(),
+            board_editor = 'admin'
+        WHERE
+            file_id = #{fileId}
+          AND board_no = #{boardNo}
+        ]]>
+	</update>
+    <update id="deleteBoard" parameterType="int">
+        <![CDATA[
+        UPDATE
+            b_board
+        SET
+            is_deleted = 'T',
+            updated_timestamp = NOW(),
+            board_editor = 'admin'
+        WHERE
+            board_no = #{boardNo}
         ]]>
     </update>
 </mapper>

@@ -2,7 +2,9 @@ package mybatis.boarduk.mapper;
 import java.util.List;
 
 import mybatis.boarduk.dto.BoardDto;
+import mybatis.boarduk.dto.BoardFileDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface BoardMapper {
@@ -16,4 +18,12 @@ public interface BoardMapper {
     void updateBoard(BoardDto board) throws Exception;
 
     void deleteBoard(int boardNo) throws Exception;
+
+    void insertBoardFileList(List<BoardFileDto> list) throws Exception;
+
+    List<BoardFileDto> selectBoardFileList(int boardNo) throws Exception;
+
+    BoardFileDto selectBoardFileInformation(@Param("fileId") int fileId, @Param("boardNo") int boardNo);
+
+    void deleteBoardFile(@Param("fileId")int fileId, @Param("boardNo") int boardNo) throws Exception;
 }

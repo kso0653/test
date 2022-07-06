@@ -1,6 +1,8 @@
 package mybatis.boarduk.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -13,4 +15,5 @@ public class BoardDto {
     private LocalDateTime insertTimestamp;
     private String boardEditor;
     private LocalDateTime updatedTimestamp;
+    private List<BoardFileDto> fileList;
 }

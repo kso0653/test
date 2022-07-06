@@ -1,6 +1,8 @@
 package mybatis.boarduk.service;
 
 import mybatis.boarduk.dto.BoardDto;
+import mybatis.boarduk.dto.BoardFileDto;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
@@ -15,4 +17,8 @@ public interface BoardService {
     void updateBoard(BoardDto board) throws Exception;
 
     void deleteBoard(int boardNo) throws Exception;
+
+    BoardFileDto selectBoardFileInformation(int fileId, int boardNo) throws Exception;
+
+    void deleteBoardFile(int fileId, int boardNo) throws Exception;
 }

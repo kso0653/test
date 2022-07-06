@@ -2,15 +2,21 @@ package mybatis.boarduk.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import mybatis.boarduk.dto.BoardDto;
+import mybatis.boarduk.dto.BoardFileDto;
 import mybatis.boarduk.service.BoardService;
+import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Slf4j
@@ -67,5 +73,30 @@ public class BoardController {
     public String deleteBoard(int boardNo) throws Exception {
         boardService.deleteBoard(boardNo);
         return "redirect:/board/openBoardList.do";
+    }
+
+    @RequestMapping("board/downloadBoardFile.do")
+    public void downloadBoardFile(@RequestParam int fileId, @RequestParam int boardNo, HttpServletResponse response) throws Exception {
+        BoardFileDto boardFile = boardService.selectBoardFileInformation(fileId, boardNo);
+        if(ObjectUtils.isEmpty(boardFile) == false) {
+            String fileName = boardFile.getOriginalFileName();
+
+            byte[] files = FileUtils.readFileToByteArray(new File(boardFile.getStoredFilePath()));
+
+            response.setContentType("application/octet-stream");
+            response.setContentLength(files.length);
+            response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8")+"\";");
+
+            response.getOutputStream().write(files);
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+        }
+    }
+
+    @RequestMapping("board/deleteBoardFile.do")
+    public String deleteBoardFile(@RequestParam int fileId, @RequestParam int boardNo) throws Exception {
+        boardService.deleteBoardFile(fileId, boardNo);
+
+        return "redirect:/board/openBoardDetail.do?boardNo="+boardNo;
     }
 }

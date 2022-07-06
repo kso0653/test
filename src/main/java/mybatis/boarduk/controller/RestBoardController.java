@@ -1,14 +1,21 @@
 package mybatis.boarduk.controller;
 
 import mybatis.boarduk.dto.BoardDto;
+import mybatis.boarduk.dto.BoardFileDto;
 import mybatis.boarduk.service.BoardService;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
 
 public class RestBoardController {
@@ -56,15 +63,15 @@ public class RestBoardController {
         return "redirect:/board";
     }
 
-    @RequestMapping(value="/board/{boardIdx}", method=RequestMethod.DELETE)
-    public String deleteBoard(@PathVariable("boardIdx") int boardIdx) throws Exception {
-        boardService.deleteBoard(boardIdx);
+    @RequestMapping(value="/board/{boardNo}", method=RequestMethod.DELETE)
+    public String deleteBoard(@PathVariable("boardNo") int boardNo) throws Exception {
+        boardService.deleteBoard(boardNo);
         return "redirect:/board";
     }
 
     @RequestMapping(value="/board/file", method=RequestMethod.GET)
-    public void downloadBoardFile(@RequestParam int idx, @RequestParam int boardIdx, HttpServletResponse response) throws Exception {
-        BoardFileDto boardFile = boardService.selectBoardFileInformation(idx, boardIdx);
+    public void downloadBoardFile(@RequestParam int fileId, @RequestParam int boardNo, HttpServletResponse response) throws Exception {
+        BoardFileDto boardFile = boardService.selectBoardFileInformation(fileId, boardNo);
         if(ObjectUtils.isEmpty(boardFile) == false) {
             String fileName = boardFile.getOriginalFileName();
 

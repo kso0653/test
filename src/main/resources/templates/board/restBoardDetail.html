@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>board</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <h2>게시글 상세 화면</h2>
+    <!-- ADD START -->
+    <form id="frm" method="post">
+        <!-- ADD END -->
+        <table class="board_detail">
+            <colgroup>
+                <col width="15%"/>
+                <col width="35%"/>
+                <col width="15%"/>
+                <col width="35%"/>
+            </colgroup>
+            <caption>게시글 상세내용</caption>
+            <tbody>
+            <tr>
+                <th scope="row">글 번호</th>
+                <td th:text="${board.boardNo}"></td>
+                <th scope="row">조회수</th>
+                <td th:text="${board.boardViews}"></td>
+            </tr>
+            <tr>
+                <th scope="row">작성자</th>
+                <td th:text="${board.boardWriter}"></td>
+                <th scope="row">작성일</th>
+                <td th:text="${#temporals.format(board.insertTimestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+            <tr>
+                <th scope="row">제목</th>
+                <td colspan="3">
+                    <input type="text" id="title" name="boardTitle"
+                           th:value="${board.boardTitle}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="view_text">
+							<textarea title="내용" id="contents" name="boardContents"
+                                      th:text="${board.boardContents}"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- ADD START -->
+        <input type="hidden" name="boardNo" th:value="${board.boardNo}">
+        <input type="hidden" id="method" name="_method" />
+    </form>
+
+    <div class="file_list" th:each="list : ${board.fileList}">
+        <!--        <a th:each="list : ${board.fileList}" th:href="@{/board/downloadBoardFile.do(fileId=${list.fileId}, boardNo=${list.boardNo})}" th:text="|${list.originalFileName}(${list.fileSize} kb)|"></a>-->
+        <a style="float:left" th:href="@{/board/file(fileId=${list.fileId}, boardNo=${list.boardNo})}" th:text="|${list.originalFileName}(${list.fileSize} kb)|"></a>
+        <form th:method="delete" th:action="@{/board/file(fileId=${list.fileId}, boardNo=${list.boardNo})}">
+            <input type="submit" id="delete_file" th:value="파일삭제">
+        </form>
+<!--        <input type="button" id="delete_file" th:value="파일삭제" th:onclick="|location.href='@{/board/deleteBoardFile.do(fileId=${list.fileId}, boardNo=${list.boardNo})}'|">-->
+    </div>
+
+    <input type="button" id="list" value="목록으로">
+    <input type="button" id="edit" value="수정하기">
+    <input type="button" id="delete" value="삭제하기">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#list").on("click", function(){
+                location.href = "/board/";
+            });
+
+            $("#edit").on("click", function(){
+                $("input:hidden[name=_method]").val("put");
+
+                var frm = $("#frm")[0];
+                frm.action = "/board/"+$("input:hidden[name=boardNo]").val();
+                frm.submit();
+            });
+
+            $("#delete").on("click", function(){
+                $("input:hidden[name=_method]").val("delete");
+
+                var frm = $("#frm")[0];
+                frm.action = "/board/"+$("input:hidden[name=boardNo]").val();
+                frm.submit();
+            });
+        })
+    </script>
+    <!-- ADD END -->
+</div>
+</body>
+</html>

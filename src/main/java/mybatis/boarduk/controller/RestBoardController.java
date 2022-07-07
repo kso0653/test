@@ -5,6 +5,7 @@ import mybatis.boarduk.dto.BoardFileDto;
 import mybatis.boarduk.service.BoardService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.net.URLEncoder;
 import java.util.List;
 
+@Controller
 public class RestBoardController {
     private final BoardService boardService;
 
@@ -89,9 +91,9 @@ public class RestBoardController {
     }
 
     @RequestMapping(value="/board/file", method=RequestMethod.DELETE)
-    public String deleteBoardFile(@RequestParam int idx, @RequestParam int boardIdx) throws Exception {
-        boardService.deleteBoardFile(idx, boardIdx);
+    public String deleteBoardFile(@RequestParam int fileId, @RequestParam int boardNo) throws Exception {
+        boardService.deleteBoardFile(fileId, boardNo);
 
-        return "redirect:/board/"+boardIdx;
+        return "redirect:/board/"+boardNo;
     }
 }

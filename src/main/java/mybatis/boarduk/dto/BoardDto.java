@@ -12,7 +12,7 @@ public class BoardDto {
     private String boardContents;
     private int boardViews;
     private String boardWriter;
-    private LocalDateTime insertTimestamp;
+    private String insertTimestamp;
     private String boardEditor;
     private LocalDateTime updatedTimestamp;
     private List<BoardFileDto> fileList;

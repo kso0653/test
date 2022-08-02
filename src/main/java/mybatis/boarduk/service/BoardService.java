@@ -21,4 +21,6 @@ public interface BoardService {
     BoardFileDto selectBoardFileInformation(int fileId, int boardNo) throws Exception;
 
     void deleteBoardFile(int fileId, int boardNo) throws Exception;
+
+    List<BoardDto> searchBoardList(String searchTitle) throws Exception;
 }

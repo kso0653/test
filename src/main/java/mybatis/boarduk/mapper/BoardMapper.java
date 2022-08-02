@@ -26,4 +26,6 @@ public interface BoardMapper {
     BoardFileDto selectBoardFileInformation(@Param("fileId") int fileId, @Param("boardNo") int boardNo);
 
     void deleteBoardFile(@Param("fileId")int fileId, @Param("boardNo") int boardNo) throws Exception;
+
+    List<BoardDto> searchBoardList(String searchTitle) throws Exception;
 }

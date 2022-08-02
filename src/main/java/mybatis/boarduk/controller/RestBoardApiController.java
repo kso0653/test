@@ -45,4 +45,9 @@ public class RestBoardApiController {
         boardService.deleteBoard(boardNo);
         return "redirect:/board";
     }
+
+    @RequestMapping(value = "/api/board/search/{searchTitle}", method = RequestMethod.GET)
+    public List<BoardDto> searchBoard(@PathVariable("searchTitle") String searchTitle) throws Exception {
+        return boardService.searchBoardList(searchTitle);
+    }
 }

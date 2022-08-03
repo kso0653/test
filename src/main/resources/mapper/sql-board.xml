@@ -151,19 +151,18 @@
             board_no = #{boardNo}
         ]]>
     </update>
-    <select id="searchBoardList" parameterType="string" resultType="mybatis.boarduk.dto.BoardDto">
-        <![CDATA[
-        SELECT
-            board_no,
-            board_title,
-            board_views,
-            to_char(insert_timestamp, 'YYYY.MM.DD HH24:MM') as insert_timestamp
-        FROM
-            b_board
-        WHERE
-            is_deleted = 'F'
-        AND board_title LIKE CONCAT('%', #{searchTitle},'%')
-        ORDER BY board_no DESC
-]]>
+    <select id="searchBoardList" resultType="mybatis.boarduk.dto.BoardDto">
+
+        SELECT board_no,
+               board_title,
+               board_views,
+               to_char(insert_timestamp, 'YYYY.MM.DD HH24:MM') as insert_timestamp
+          FROM b_board
+         WHERE is_deleted = 'F'
+        <if test="searchTitle!=null and !searchTitle.equals('')">
+           AND board_title LIKE CONCAT('%', #{searchTitle},'%')
+        </if>
+--         and board_no <![CDATA[ <  ]]> 5
+         ORDER BY board_no DESC
     </select>
 </mapper>

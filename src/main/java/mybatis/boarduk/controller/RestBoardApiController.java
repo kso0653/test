@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class RestBoardApiController {
 
@@ -46,8 +47,8 @@ public class RestBoardApiController {
         return "redirect:/board";
     }
 
-    @RequestMapping(value = "/api/board/search/{searchTitle}", method = RequestMethod.GET)
-    public List<BoardDto> searchBoard(@PathVariable("searchTitle") String searchTitle) throws Exception {
+    @RequestMapping(value = {"/api/board/search/{searchTitle}", "/api/board/search"} , method = RequestMethod.GET)
+    public List<BoardDto> searchBoard(@PathVariable(name = "searchTitle", required = false) String searchTitle) throws Exception {
         return boardService.searchBoardList(searchTitle);
     }
 }

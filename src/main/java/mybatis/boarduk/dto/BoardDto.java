@@ -14,6 +14,6 @@ public class BoardDto {
     private String boardWriter;
     private String insertTimestamp;
     private String boardEditor;
-    private LocalDateTime updatedTimestamp;
+    private String updatedTimestamp;
     private List<BoardFileDto> fileList;
 }
